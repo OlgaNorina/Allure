@@ -23,7 +23,7 @@ public class CardDeliveryNewDateTest {
 
         open("http://localhost:9999");
         SelenideElement form = $(".form");
-        form.$("[data-test-id=city] input").setValue("Омск");//(faker.address().city());
+        form.$("[data-test-id=city] input").setValue(faker.address().city());
         $$(".menu-item").first().click();
         form.$(".input__icon").click();
         $$("td").find(exactText("21")).click();
