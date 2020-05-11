@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
-import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryNewDateTest {
@@ -36,6 +35,6 @@ public class CardDeliveryNewDateTest {
         $$("td").find(exactText("23")).click();
         form.$(".button").click();
         $$(".button").find(exactText("Перепланировать")).click();
-        $(".notification_status_ok").shouldBe(visible);
+        $(".notification_status_ok").shouldBe(exist);
     }
 }
