@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Locale;
 
 import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryNewDateTest {
@@ -22,7 +23,8 @@ public class CardDeliveryNewDateTest {
 
         open("http://localhost:9999");
         SelenideElement form = $(".form");
-        form.$("[data-test-id=city] input").setValue(faker.address().city());
+        form.$("[data-test-id=city] input").setValue("Омск");//(faker.address().city());
+        $$(".menu-item").first().click();
         form.$(".input__icon").click();
         $$("td").find(exactText("21")).click();
         form.$("[data-test-id=name] input").setValue(faker.name().lastName()).setValue(" ").setValue(faker.name().firstName());
@@ -34,5 +36,6 @@ public class CardDeliveryNewDateTest {
         $$("td").find(exactText("23")).click();
         form.$(".button").click();
         $$(".button").find(exactText("Перепланировать")).click();
+        $(".notification_status_ok").shouldBe(visible);
     }
 }
