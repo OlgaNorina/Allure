@@ -1,5 +1,8 @@
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.api.BeforeEach;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
@@ -12,15 +15,20 @@ import static com.codeborne.selenide.Selenide.*;
 public class CardDeliveryNewDateTest {
     private Meeting meeting = DataGenerator.Registration.generate();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    
-    @BeforeEach
-    void openURL() {
-        open("http://localhost:9999");
+
+   @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
     }
 
     @Test
     void shouldSubmitRequest() {
-
+        open("http://localhost:9999");
         SelenideElement form = $(".form");
         form.$("[data-test-id=city] input").setValue(meeting.getCity());
         form.$("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
